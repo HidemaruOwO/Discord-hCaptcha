@@ -10,10 +10,12 @@ import {
   Modal,
   Card,
 } from "react-bootstrap";
+import Fetch from "whatwg-fetch";
 // styles
 import styles from "../styles/Home.module.css";
 //json
 import Token from "../../config/token.json";
+import Config from "../../config/url.json";
 
 export default function Home({}) {
   const [discordtag, setDiscordtag] = useState<string>("");
@@ -39,6 +41,23 @@ export default function Home({}) {
   const onClickVerify = () => {
     if (token) {
       console.log("Done.");
+      Fetch.fetch(Config.url.backend + "/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tag: discordtag,
+          captchaToken: token,
+        }),
+      }).then(
+        function (response: any) {
+          console.log(response);
+        },
+        function (error: any) {
+          console.log(error);
+        }
+      );
     } else {
       setShow(true);
     }
