@@ -1,19 +1,11 @@
-# Next.js with Bun runtime
+# Next.js with Yarn
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with Bun.
+This is a [Next.js](https://nextjs.org/) project with Yarn.
 
 ## Getting Started
 
-### Cloning the repo
-
-```sh
-bun create next ./app
-```
-
-First, run the development server:
-
 ```bash
-bun dev
+yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
