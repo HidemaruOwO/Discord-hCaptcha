@@ -2,8 +2,12 @@
   "name": "frontend",
   "version": "0.0.57",
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
+  "license": "MIT",
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.4.4",
     "bootstrap": "^5.2.0",

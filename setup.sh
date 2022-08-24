@@ -15,6 +15,7 @@ read -p "Is this directory the project root? (Y/n): " ISROOT
 if [ "${ISROOT,,}" = "y" ]; then
   cd frontend
   yarn install
+  yarn build
   cd ..
   cd backend
   yarn install
