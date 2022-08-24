@@ -6,7 +6,7 @@ function existsCmd () {
 
 if ! existsCmd yarn; then
   echo "Please install yarn"
-  return 0
+  exit 0
 fi
 
 
