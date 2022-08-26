@@ -25,8 +25,12 @@ export default function Auth({ serverId }: Props) {
   const [discordtag, setDiscordtag] = useState<string>("");
   const [token, setToken] = useState(null);
   const [submit, setSubmit] = useState<boolean>(true);
-  const [show, setShow] = useState<boolean>(false);
-  const handleClose = () => setShow(false);
+  const [warnShow, setWarnShow] = useState<boolean>(false);
+  const handleWarnClose = () => setWarnShow(false);
+  const [errorShow, setErrorShow] = useState<boolean>(false);
+  const handleErrorClose = () => setErrorShow(false);
+  const [doneShow, setDoneShow] = useState<boolean>(false);
+  const handleDoneClose = () => setDoneShow(false);
   const captchaRef = useRef(null);
 
   const onLoad = () => {
@@ -58,13 +62,21 @@ export default function Auth({ serverId }: Props) {
       }).then(
         function (response: any) {
           console.log(response);
+          // passed
+          if (response.status === 200) {
+            setDoneShow(true);
+          } else {
+            // failed
+            setErrorShow(true);
+          }
         },
         function (error: any) {
           console.log(error);
+          setErrorShow(true);
         }
       );
     } else {
-      setShow(true);
+      setWarnShow(true);
     }
   };
 
@@ -117,13 +129,41 @@ export default function Auth({ serverId }: Props) {
         </Container>
       </main>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={warnShow} onHide={handleWarnClose}>
         <Modal.Header closeButton>
           <Modal.Title>⚠️ Warn</Modal.Title>
         </Modal.Header>
         <Modal.Body>hCaptchで認証してください</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleWarnClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={errorShow} onHide={handleErrorClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>⚠️ Erorr</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          エラーが発生しました。
+          <br />
+          サーバー管理者に連絡してください
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleErrorClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={doneShow} onHide={handleDoneClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>✔ Done</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>認証できました</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDoneClose}>
             Close
           </Button>
         </Modal.Footer>
