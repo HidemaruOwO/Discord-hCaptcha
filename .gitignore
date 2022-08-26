@@ -104,3 +104,6 @@ dist
 .tern-port
 
 config/token.json
+
+# DS_Store store
+.DS_Store
