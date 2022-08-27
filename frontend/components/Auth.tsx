@@ -14,8 +14,7 @@ import Fetch from "whatwg-fetch";
 // styles
 import styles from "../styles/Auth.module.css";
 //json
-import Token from "../../config/token.json";
-import Config from "../../config/url.json";
+import config from "../../config/config.json";
 
 type Props = {
   serverId: string;
@@ -38,7 +37,8 @@ export default function Auth({ serverId }: Props) {
     // execute function on it. you can use other functions as
     // documented here:
     // https://docs.hcaptcha.com/configuration#jsapi
-    captchaRef.current.execute();
+    //captchaRef.current.execute();
+    console.log("hCaptcha loaded");
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function Auth({ serverId }: Props) {
   const onClickVerify = () => {
     if (token) {
       console.log("Done.");
-      Fetch.fetch(Config.url.backend + "/auth", {
+      Fetch.fetch(config.url.backend + "/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +107,7 @@ export default function Auth({ serverId }: Props) {
                       />
                     </Form.Group>
                     <HCaptcha
-                      sitekey={Token.hcaptcha.sitekey}
+                      sitekey={config.sitekey}
                       onLoad={onLoad}
                       onVerify={setToken}
                       ref={captchaRef}
