@@ -1,0 +1,13 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Inspecting new users with hcaptcha",
+  "main": "index.js",
+  "repository": "https://github.com/HidemaruOwO/discordjs-hcaptcha",
+  "author": "HidemaruOwO",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.3.0",
+    "express": "^4.18.1"
+  }
+}

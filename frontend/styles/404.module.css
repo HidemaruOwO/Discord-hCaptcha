@@ -1,0 +1,7 @@
+.background {
+  background-image: url("/image/nyancat.gif");
+  background-size: contain;
+  background-color: #555555;
+  height: 100vh;
+  width: 100vw;
+}
