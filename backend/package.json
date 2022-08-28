@@ -6,8 +6,18 @@
   "repository": "https://github.com/HidemaruOwO/discordjs-hcaptcha",
   "author": "HidemaruOwO",
   "license": "MIT",
+  "scripts": {
+    "test": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
   "dependencies": {
-    "discord.js": "^14.3.0",
+    "discord.js": "^13.6.0",
     "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.13",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "sitekey": "",
+  "url": {
+    "frontend": "verify.yourdomain.com",
+    "backend": "api.yourdomain.com"
+  }
+}
