@@ -3,12 +3,12 @@ import { Command } from "./interface";
 import token from "./config/token.json";
 import fs from "node:fs";
 
-const client: any = new Client({
+const client: Client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
 const commands: any = {};
-let data: Command[] = [];
+let data: any[] = [];
 const commandFiles: string[] = fs
   .readdirSync("./src/commands")
   .filter((file: string) => file.endsWith(".js"));
@@ -25,11 +25,11 @@ client.once("ready", async () => {
   client.guilds.cache
     .map((guild: Guild) => guild.id)
     .forEach((id: string) => {
-      client.application.commands.set(data, id);
+      client.application?.commands.set(data, id);
     });
-  console.log("Ready: " + client.user.tag);
+  console.log("Ready: " + client.user?.tag);
   setInterval(() => {
-    client.user.setActivity({
+    client.user?.setActivity({
       name: `/ | ${client.guilds.cache.size}Guilds | ${client.guilds.cache
         .map((guild: Guild) => guild.memberCount)
         .reduce((p: number, c: number) => p + c)}Users`,
