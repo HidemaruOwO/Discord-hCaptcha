@@ -1,7 +1,7 @@
 import { Client, BaseCommandInteraction } from "discord.js";
 import { Command } from "../interface";
 
-export const Ping: Command = {
+const cmd: Command = {
   data: {
     name: "ping",
     description: "Botのレイテンシを表示します",
@@ -47,3 +47,5 @@ export const Ping: Command = {
     });
   },
 };
+
+export { cmd };

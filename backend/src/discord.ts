@@ -26,18 +26,20 @@ export default class Discord implements DiscordClass {
     const commands: any = {};
     let data: any[] = [];
     const commandFiles: string[] = fs
-      .readdirSync("./src/commands")
+      .readdirSync("./dist/commands")
       .filter((file: string) => file.endsWith(".js"));
 
     for (const file of commandFiles) {
-      const command: Command = require(`./src/commands/${file}`);
-      commands[command.data.name] = command;
+      const command = require(`./commands/${file}`);
+      console.log(command);
+      commands[command.cmd.data.name] = command;
     }
 
     client.once("ready", async () => {
       for (const commandName in commands) {
-        data.push(commands[commandName].data);
+        data.push(commands[commandName].cmd.data);
       }
+      console.log(data);
       client.guilds.cache
         .map((guild: Guild) => guild.id)
         .forEach((id: string) => {
@@ -51,6 +53,30 @@ export default class Discord implements DiscordClass {
             .reduce((p: number, c: number) => p + c)}Users`,
         });
       }, 10000);
+    });
+
+    client.on("interactionCreate", async (interaction) => {
+      if (!interaction.isCommand()) {
+        return;
+      }
+      console.log("interaction.commandName: " + interaction.commandName);
+      console.log(commands);
+      const command: Command = commands[interaction.commandName].cmd;
+      try {
+        await command.execute(client, interaction);
+      } catch (error) {
+        console.error(error);
+        await interaction.reply({
+          embeds: [
+            {
+              title: "コマンドの実行で例外が生じました",
+              description:
+                "権限が不足してませんか？\n確実にエラーを根絶するにはADMIN権限をBOTに付与してください",
+            },
+          ],
+          ephemeral: true,
+        });
+      }
     });
 
     client.login(this.botToken);
