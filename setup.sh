@@ -21,9 +21,9 @@ if [ "${IS_SET_VALUE,,}" = "y" ]; then
     cd backend
     cp -rf ../config ./src
     yarn install
+    yarn build
     cd ..
     echo "Done."
-    echo "Please run start.sh"
   elif [ "${IS_ROOT,,}" = "n" ]; then
     echo "Please move the project root"
   else
