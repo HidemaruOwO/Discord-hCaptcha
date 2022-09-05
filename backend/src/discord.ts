@@ -1,25 +1,71 @@
-import { Client, Intents, Guild } from "discord.js";
+import {
+  Client,
+  Intents,
+  Guild,
+  MessageButton,
+  MessageActionRow,
+} from "discord.js";
 import { Command } from "./interface";
+import config from "./config/config.json";
 import fs from "node:fs";
 
 export interface DiscordClass {
   setToken: (token: string) => void;
+  setRole: (guildId: string, userId: string, tag: string) => boolean;
   run: () => void;
 }
 
 export default class Discord implements DiscordClass {
   botToken: string;
+  client: Client;
 
   constructor() {
     this.botToken = "";
+    this.client = new Client({
+      intents: [],
+    });
   }
 
   setToken(token: string): void {
     this.botToken = token;
   }
 
+  setRole(guildId: string, userId: string, tag: string): boolean {
+    const guild = this.client.guilds.cache.get(guildId);
+
+    if (guild === undefined) {
+      return false;
+    }
+
+    const role = guild.roles.cache.find((role) => role.name === "verified");
+
+    if (role === undefined) {
+      this.client.users.cache
+        .get(guild.ownerId)
+        ?.send(
+          "**" +
+            guild.name +
+            "**に**verified**という名前のロールがありません\nそのため認証ができません\n**verified**ロールを作成してください"
+        );
+      return false;
+    }
+
+    const member = guild.members.cache.get(userId);
+
+    if (member === undefined) {
+      return false;
+    }
+
+    if (member.user.tag === tag) {
+      member.roles.add(role);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   run() {
-    const client: Client = new Client({
+    this.client = new Client({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
     });
 
@@ -35,50 +81,76 @@ export default class Discord implements DiscordClass {
       commands[command.cmd.data.name] = command;
     }
 
-    client.once("ready", async () => {
+    this.client.once("ready", async () => {
       for (const commandName in commands) {
         data.push(commands[commandName].cmd.data);
       }
       console.log(data);
-      client.guilds.cache
+      this.client.guilds.cache
         .map((guild: Guild) => guild.id)
         .forEach((id: string) => {
-          client.application?.commands.set(data, id);
+          this.client.application?.commands.set(data, id);
         });
-      console.log("Ready: " + client.user?.tag);
+      console.log("Ready: " + this.client.user?.tag);
       setInterval(() => {
-        client.user?.setActivity({
-          name: `/ | ${client.guilds.cache.size}Guilds | ${client.guilds.cache
+        this.client.user?.setActivity({
+          name: `/ | ${
+            this.client.guilds.cache.size
+          }Guilds | ${this.client.guilds.cache
             .map((guild: Guild) => guild.memberCount)
             .reduce((p: number, c: number) => p + c)}Users`,
         });
       }, 10000);
     });
 
-    client.on("interactionCreate", async (interaction) => {
-      if (!interaction.isCommand()) {
-        return;
+    this.client.on("interactionCreate", async (interaction) => {
+      if (interaction.isButton()) {
+        if (interaction.customId === "verify") {
+          let url: string =
+            "https://" +
+            config.url.frontend +
+            "/auth" +
+            "?s=" +
+            interaction.guild?.id +
+            "&u=" +
+            interaction.user.id;
+
+          const button = new MessageButton()
+            .setURL(url)
+            .setStyle("LINK")
+            .setLabel("認証")
+            .setEmoji("✅");
+
+          await interaction.deferReply({ ephemeral: true });
+          await interaction.followUp({
+            content: "このボタンを押すと認証サイトに飛ぶことができます",
+            components: [new MessageActionRow().addComponents(button)],
+          });
+        }
       }
-      console.log("interaction.commandName: " + interaction.commandName);
-      console.log(commands);
-      const command: Command = commands[interaction.commandName].cmd;
-      try {
-        await command.execute(client, interaction);
-      } catch (error) {
-        console.error(error);
-        await interaction.reply({
-          embeds: [
-            {
-              title: "コマンドの実行で例外が生じました",
-              description:
-                "権限が不足してませんか？\n確実にエラーを根絶するにはADMIN権限をBOTに付与してください",
-            },
-          ],
-          ephemeral: true,
-        });
+
+      if (interaction.isCommand()) {
+        console.log("interaction.commandName: " + interaction.commandName);
+        console.log(commands);
+        const command: Command = commands[interaction.commandName].cmd;
+        try {
+          await command.execute(this.client, interaction);
+        } catch (error) {
+          console.error(error);
+          await interaction.reply({
+            embeds: [
+              {
+                title: "コマンドの実行で例外が生じました",
+                description:
+                  "権限が不足してませんか？\n確実にエラーを根絶するにはADMIN権限をBOTに付与してください",
+              },
+            ],
+            ephemeral: true,
+          });
+        }
       }
     });
 
-    client.login(this.botToken);
+    this.client.login(this.botToken);
   }
 }
