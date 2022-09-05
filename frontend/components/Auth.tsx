@@ -10,6 +10,7 @@ import {
   Modal,
   Card,
 } from "react-bootstrap";
+
 import Fetch from "whatwg-fetch";
 // styles
 import styles from "../styles/Auth.module.css";
@@ -18,9 +19,10 @@ import config from "../../config/config.json";
 
 type Props = {
   serverId: string;
+  userId: string;
 };
 
-export default function Auth({ serverId }: Props) {
+export default function Auth({ serverId, userId }: Props) {
   const [discordtag, setDiscordtag] = useState<string>("");
   const [token, setToken] = useState(null);
   const [submit, setSubmit] = useState<boolean>(true);
@@ -56,6 +58,7 @@ export default function Auth({ serverId }: Props) {
         },
         body: JSON.stringify({
           tag: discordtag,
+          userId: userId,
           serverId: serverId,
           captchaToken: token,
         }),
@@ -87,7 +90,7 @@ export default function Auth({ serverId }: Props) {
         <meta name="description" content="Inspecting new users with hcaptcha" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={styles.background}>
         <Container>
           <Row>
             <Col>

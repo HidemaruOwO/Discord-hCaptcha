@@ -9,22 +9,28 @@ if ! existsCmd yarn; then
   exit 0
 fi
 
+read -p 'Did you set values in "project_root/config/token.json, config.json"? (Y/n): ' IS_SET_VALUE
 
-read -p "Is this directory the project root? (Y/n): " ISROOT
-
-if [ "${ISROOT,,}" = "y" ]; then
-  cd frontend
-  yarn install
-  yarn build
-  cd ..
-  cd backend
-  yarn install
-  cd ..
-  echo "Done."
-  echo "Please run start.sh"
-elif [ "${ISROOT,,}" = "n" ]; then
-  echo "Please move the project root"
+if [ "${IS_SET_VALUE,,}" = "y" ]; then
+  read -p "Is this directory the project root? (Y/n): " IS_ROOT
+  if [ "${IS_ROOT,,}" = "y" ]; then
+    cd frontend
+    yarn install
+    yarn build
+    cd ..
+    cd backend
+    cp -rf ../config ./src
+    yarn install
+    cd ..
+    echo "Done."
+    echo "Please run start.sh"
+  elif [ "${IS_ROOT,,}" = "n" ]; then
+    echo "Please move the project root"
+  else
+    echo "Please press Y or n"
+  fi
+elif [ "${IS_SET_VALUE,,}" = "n" ]; then
+  echo "Please set values in project_root/config/token.json, config.json"
 else
   echo "Please press Y or n"
 fi
-

@@ -107,3 +107,7 @@ config/token.json
 
 # DS_Store store
 .DS_Store
+
+# Private data
+*/**/token.json
+*/**/config.json
