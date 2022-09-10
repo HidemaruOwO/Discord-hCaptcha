@@ -11,7 +11,7 @@ import fs from "node:fs";
 
 export interface DiscordClass {
   setToken: (token: string) => void;
-  setRole: (guildId: string, userId: string, tag: string) => boolean;
+  setRole: (guildId: string, userId: string, tag: string) => Promise<boolean>;
   run: () => void;
 }
 
@@ -30,12 +30,24 @@ export default class Discord implements DiscordClass {
     this.botToken = token;
   }
 
-  setRole(guildId: string, userId: string, tag: string): boolean {
+  async setRole(
+    guildId: string,
+    userId: string,
+    tag: string
+  ): Promise<boolean> {
+    console.log(
+      "Running setRole\nguildId: " + guildId + "\nuserId: " + userId
+    ) +
+      "\ntag: " +
+      tag;
     const guild = this.client.guilds.cache.get(guildId);
 
     if (guild === undefined) {
+      console.log("Don't found guild: " + guildId);
       return false;
     }
+
+    console.log("Guild name: " + guild.name);
 
     const role = guild.roles.cache.find((role) => role.name === "verified");
 
@@ -47,19 +59,22 @@ export default class Discord implements DiscordClass {
             guild.name +
             "**に**verified**という名前のロールがありません\nそのため認証ができません\n**verified**ロールを作成してください"
         );
+      console.log("Don't found verified role");
       return false;
     }
 
-    const member = guild.members.cache.get(userId);
-
+    const member = await guild.members.fetch(userId);
     if (member === undefined) {
+      console.log("Don't found member: " + userId);
       return false;
     }
 
     if (member.user.tag === tag) {
       member.roles.add(role);
+      console.log("Success set role to " + tag);
       return true;
     } else {
+      console.log("Don't match tag");
       return false;
     }
   }
