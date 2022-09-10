@@ -18,10 +18,12 @@ app.listen(port, () => {
 });
 
 app.get("/", (req: express.Request, res: express.Response) => {
+  res.set({ "Access-Control-Allow-Origin": "*" });
   res.send("Discord hCaptcha is Running.");
 });
 
 app.post("/auth", async (req: express.Request, res: express.Response) => {
+  res.set({ "Access-Control-Allow-Origin": "*" });
   verify(token.hcaptcha, req.body.captchaToken)
     .then(async (data: VerifyResponse) => {
       if (data.success) {
