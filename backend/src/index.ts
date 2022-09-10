@@ -8,12 +8,17 @@ bot.setToken(token.discord);
 bot.run();
 
 const app: express.Express = express();
+const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(3001, () => {
-  console.log("Listening on port 3000");
+app.listen(port, () => {
+  console.log("Listening on port " + port);
+});
+
+app.get("/", (req: express.Request, res: express.Response) => {
+  res.send("Discord hCaptcha is Running.");
 });
 
 app.post("/auth", (req: express.Request, res: express.Response) => {

@@ -7,7 +7,7 @@
   "author": "HidemaruOwO",
   "license": "MIT",
   "scripts": {
-    "test": "ts-node src/index.ts",
+    "test": "tsc && node dist/index.js",
     "build": "tsc",
     "start": "node dist/index.js"
   },
