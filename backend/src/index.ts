@@ -30,7 +30,11 @@ app.post("/auth", async (req: express.Request, res: express.Response) => {
       console.log("hcaptcha success: " + data.success);
       if (data.success) {
         console.log("hcaptcha passed");
-        if (req.body.guildId && req.body.userId && req.body.tag) {
+        if (
+          !req.body.guildId == undefined &&
+          !req.body.userId == undefined &&
+          !req.body.tag == undefined
+        ) {
           console.log("role setting");
           const isSuccessSetRole: boolean = await bot.setRole(
             req.body.guildId,
@@ -44,6 +48,9 @@ app.post("/auth", async (req: express.Request, res: express.Response) => {
             res.status(503).send("Failure");
             console.log("setRole is Failure");
           }
+        } else {
+          res.status(400).send("Bad Request");
+          console.log("Bad Request");
         }
       } else {
         res.status(503).send("Failure");
