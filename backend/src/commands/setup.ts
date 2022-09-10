@@ -10,6 +10,7 @@ const cmd: Command = {
   data: {
     name: "setup",
     description: "Discord hCaptch認証のセットアップをします",
+    defaultMemberPermissions: ["ADMINISTRATOR"],
   },
   async execute(client: Client, interaction: BaseCommandInteraction) {
     const guild = interaction.guild;

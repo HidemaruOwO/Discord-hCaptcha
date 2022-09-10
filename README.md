@@ -8,7 +8,8 @@
 
 # discordjs-hcaptcha 🔎
 
-![image](https://user-images.githubusercontent.com/82384920/188517904-a34a0b5d-25d6-43a6-9516-2170303263f3.png)
+![image](https://user-images.githubusercontent.com/82384920/188517904-a34a0b5d-25d6-43a6-9516-2170303263f3.png)  
+[Bot の追加](https://discord.com/api/oauth2/authorize?client_id=1016347472022474773&permissions=1110517566518&scope=bot%20applications.commands)
 
 ## なんだこれは
 

@@ -11,7 +11,7 @@ import {
   Card,
 } from "react-bootstrap";
 
-import Fetch from "whatwg-fetch";
+import "whatwg-fetch";
 // styles
 import styles from "../styles/Auth.module.css";
 //json
@@ -51,8 +51,9 @@ export default function Auth({ serverId, userId }: Props) {
   const onClickVerify = () => {
     if (token) {
       console.log("Done.");
-      Fetch.fetch(config.url.backend + "/auth", {
+      fetch("https://" + config.url.backend + "/auth", {
         method: "POST",
+        credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
         },
