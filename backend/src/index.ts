@@ -1,6 +1,7 @@
 import Discord from "./discord";
 import token from "./config/token.json";
 import express from "express";
+import cors from "cors";
 import { verify } from "hcaptcha";
 
 const bot = new Discord();
@@ -12,6 +13,7 @@ const port: number = 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.listen(port, () => {
   console.log("Listening on port " + port);
