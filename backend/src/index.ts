@@ -24,6 +24,7 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.post("/auth", async (req: express.Request, res: express.Response) => {
   res.set({ "Access-Control-Allow-Origin": "*" });
+  console.log("POST /auth");
   verify(token.hcaptcha, req.body.captchaToken)
     .then(async (data: VerifyResponse) => {
       if (data.success) {
@@ -35,14 +36,15 @@ app.post("/auth", async (req: express.Request, res: express.Response) => {
           );
           if (isSuccessSetRole) {
             res.status(200).send("Success");
-            console.log("Success");
+            console.log("setRole is Success");
           } else {
             res.status(503).send("Failure");
-            console.log("Failure");
+            console.log("setRole is Failure");
           }
         }
       } else {
         res.status(503).send("Failure");
+        console.log("This token is not valid.");
       }
     })
     .catch((err) => {
