@@ -53,9 +53,9 @@ export default function Auth({ serverId, userId }: Props) {
       console.log("Done.");
       fetch("https://" + config.url.backend + "/auth", {
         method: "POST",
+        credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
-          
         },
         body: JSON.stringify({
           tag: discordtag,
