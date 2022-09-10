@@ -55,6 +55,7 @@ export default function Auth({ serverId, userId }: Props) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          
         },
         body: JSON.stringify({
           tag: discordtag,
