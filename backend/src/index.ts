@@ -30,11 +30,7 @@ app.post("/auth", async (req: express.Request, res: express.Response) => {
       console.log("hcaptcha success: " + data.success);
       if (data.success) {
         console.log("hcaptcha passed");
-        if (
-          req.body.serverId &&
-          req.body.userId &&
-          req.body.tag 
-        ) {
+        if (req.body.serverId && req.body.userId && req.body.tag) {
           console.log("role setting");
           const isSuccessSetRole: boolean = await bot.setRole(
             req.body.serverId,
