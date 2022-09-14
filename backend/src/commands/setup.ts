@@ -18,6 +18,14 @@ const cmd: Command = {
       content: "セットアップを開始します",
       ephemeral: true,
     });
+    const role = guild?.roles.cache.find((role) => role.name === "verified");
+    if (!role === undefined) {
+      await interaction.editReply({
+        content:
+          "Verifiedロールが存在します\n認証ボタンを作成する場合は`/genbutton`コマンドを実行してください",
+      });
+      return;
+    }
     guild?.roles.create({ name: "verified" });
     await interaction.editReply({
       content: "ロールを作成しました",
