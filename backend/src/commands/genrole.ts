@@ -14,6 +14,7 @@ const cmd: Command = {
       ephemeral: true,
     });
     const role = guild?.roles.cache.find((role) => role.name === "verified");
+    console.log(role);
     if (!role === undefined) {
       await interaction.editReply({
         content: "Verifiedロールが存在します",

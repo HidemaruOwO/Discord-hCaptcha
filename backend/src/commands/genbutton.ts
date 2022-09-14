@@ -23,6 +23,7 @@ const cmd: Command = {
       await interaction.editReply({
         content: "Verifiedロールが存在しません",
       });
+      return;
     }
     const button = new MessageButton()
       .setCustomId("verify")
