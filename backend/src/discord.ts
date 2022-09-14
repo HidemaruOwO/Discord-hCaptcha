@@ -57,7 +57,7 @@ export default class Discord implements DiscordClass {
         ?.send(
           "**" +
             guild.name +
-            "**に**verified**という名前のロールがありません\nそのため認証ができません\n**verified**ロールを作成してください"
+            "**に**verified**という名前のロールがありません\nそのため認証ができません\n`/genrole`コマンドで**verified**ロールを作成してください"
         );
       console.log("Don't found verified role");
       return false;
