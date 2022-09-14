@@ -8,28 +8,22 @@ import { Command } from "../interface";
 
 const cmd: Command = {
   data: {
-    name: "setup",
-    description: "Discord hCaptch認証のセットアップをします",
+    name: "genbutton",
+    description: "認証ボタンを作成します",
     defaultMemberPermissions: ["ADMINISTRATOR"],
   },
   async execute(client: Client, interaction: BaseCommandInteraction) {
     const guild = interaction.guild;
     await interaction.reply({
-      content: "セットアップを開始します",
+      content: "ボタンを作成します",
       ephemeral: true,
     });
     const role = guild?.roles.cache.find((role) => role.name === "verified");
-    if (!role === undefined) {
+    if (role === undefined) {
       await interaction.editReply({
-        content:
-          "Verifiedロールが存在します\n認証ボタンを作成する場合は`/genbutton`コマンドを実行してください",
+        content: "Verifiedロールが存在しません",
       });
-      return;
     }
-    guild?.roles.create({ name: "verified" });
-    await interaction.editReply({
-      content: "ロールを作成しました",
-    });
     const button = new MessageButton()
       .setCustomId("verify")
       .setStyle("PRIMARY")
@@ -49,7 +43,7 @@ const cmd: Command = {
       ],
       components: [new MessageActionRow().addComponents(button)],
     });
-    await interaction.editReply({ content: "セットアップを完了しました" });
+    await interaction.editReply({ content: "ボタンを作成しました" });
   },
 };
 
