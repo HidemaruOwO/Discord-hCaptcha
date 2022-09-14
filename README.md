@@ -17,6 +17,12 @@
 
 </div>
 
+## 📚 ドキュメント
+
+- [ホーム](https://discord-hcaptcha.doc.v-sli.me/)
+- [コマンド](https://discord-hcaptcha.doc.v-sli.me/command)
+- [注意](https://discord-hcaptcha.doc.v-sli.me/attention)
+
 ## 🚀 使い方
 
 ### 💨 セットアップ
