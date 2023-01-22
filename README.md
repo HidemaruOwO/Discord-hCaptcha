@@ -6,7 +6,7 @@
 ![Open Issues](https://img.shields.io/github/issues-raw/HidemaruOwO/discordjs-hcaptcha?style=flat-square)
 ![Bug Issues](https://img.shields.io/github/issues/HidemaruOwO/discordjs-hcaptcha/bug?style=flat-square)
 
-# discordjs-hcaptcha 🔎
+# discord-hcaptcha 🔎
 
 ![image](https://user-images.githubusercontent.com/82384920/188517904-a34a0b5d-25d6-43a6-9516-2170303263f3.png)  
 [Bot の追加](https://discord.com/api/oauth2/authorize?client_id=1016347472022474773&permissions=1110517566518&scope=bot%20applications.commands)
@@ -30,8 +30,8 @@
 #### リポジトリのクローン
 
 ```bash
-git clone https://github.com/HidemaruOwO/discordjs-hcaptcha.git
-cd discordjs-hcaptcha
+git clone https://github.com/HidemaruOwO/discord-hcaptcha.git
+cd discord-hcaptcha
 ```
 
 #### config に認証情報等の入力
@@ -41,7 +41,7 @@ cd discordjs-hcaptcha
 vim config/
 ```
 
-#### パッケージなどのインストール
+#### パッケージのインストール及びソースのビルド
 
 ```bash
 bash setup.sh
@@ -49,15 +49,11 @@ bash setup.sh
 
 #### 💡 実行
 
-##### Screen を使う場合
-
 ```bash
-screen -S dh-frontend
 cd frontend
 yarn start
 # Ctrl + ad <C-ad>
 
-screen -S dh-backend
 cd backend
 yarn start
 # Ctrl + ad <C-ad>
