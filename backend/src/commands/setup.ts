@@ -4,6 +4,7 @@ import {
    MessageButton,
    MessageActionRow,
 } from "discord.js";
+import { genButton, genRole } from "../generalFunctions";
 import { Command } from "../interface";
 
 const cmd: Command = {
@@ -18,37 +19,14 @@ const cmd: Command = {
          content: "セットアップを開始します",
          ephemeral: true,
       });
-      const role = guild?.roles.cache.find((role) => role.name === "verified");
-      if (!role === void 0) {
-         await interaction.editReply({
-            content:
-               "Verifiedロールが存在します\n認証ボタンを作成する場合は`/genbutton`コマンドを実行してください",
-         });
-         return;
-      }
-      guild?.roles.create({ name: "verified" });
       await interaction.editReply({
-         content: "ロールを作成しました",
+         content: "ロールを作成します",
       });
-      const button = new MessageButton()
-         .setCustomId("verify")
-         .setStyle("PRIMARY")
-         .setLabel("認証")
-         .setEmoji("✅");
-      await interaction.channel?.send({
-         embeds: [
-            {
-               title: "認証方法",
-               description: "認証を行うには、以下のボタンを押してください",
-               color: "RANDOM",
-               timestamp: new Date(),
-               footer: {
-                  text: "©️ HidemaruOwO | Discord hCaptcha",
-               },
-            },
-         ],
-         components: [new MessageActionRow().addComponents(button)],
+      genRole(client, interaction);
+      await interaction.editReply({
+         content: "ボタンを作成します",
       });
+      genButton(client, interaction, interaction.guild);
       await interaction.editReply({ content: "セットアップを完了しました" });
    },
 };
