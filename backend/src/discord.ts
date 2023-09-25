@@ -56,8 +56,8 @@ export default class Discord implements DiscordClass {
             .get(guild.ownerId)
             ?.send(
                "**" +
-               guild.name +
-               "**に**verified**という名前のロールがありません\nそのため認証ができません\n`/genrole`コマンドで**verified**ロールを作成してください"
+                  guild.name +
+                  "**に**verified**という名前のロールがありません\nそのため認証ができません\n`/genrole`コマンドで**verified**ロールを作成してください"
             );
          console.log("Don't found verified role");
          return false;
@@ -109,16 +109,19 @@ export default class Discord implements DiscordClass {
          console.log("Ready: " + this.client.user?.tag);
          setInterval(() => {
             this.client.user?.setActivity({
-               name: `/ | ${this.client.guilds.cache.size
-                  }Guilds | ${this.client.guilds.cache
-                     .map((guild: Guild) => guild.memberCount)
-                     .reduce((p: number, c: number) => p + c)}Users`,
+               name: `/ | ${
+                  this.client.guilds.cache.size
+               }Guilds | ${this.client.guilds.cache
+                  .map((guild: Guild) => guild.memberCount)
+                  .reduce((p: number, c: number) => p + c)}Users`,
             });
          }, 10000);
       });
 
       this.client.on("interactionCreate", async (interaction) => {
          if (interaction.isButton()) {
+            console.log("interaction: " + interaction);
+            console.log("interaction.customId: " + interaction.customId);
             if (interaction.customId === "verify") {
                let url: string =
                   "https://" +
