@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Auth from "../../components/Auth";
+import Auth from "components/Auth";
 
 export default function Page() {
   const [serverId, setServerId] = useState<string>("");
