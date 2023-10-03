@@ -11,7 +11,7 @@
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.4.4",
     "bootstrap": "^5.2.0",
-    "next": "12.2.3",
+    "next": "13.5.4",
     "react": "^18",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18",
