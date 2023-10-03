@@ -69,6 +69,10 @@ export default class Discord implements DiscordClass {
          return false;
       }
 
+      if (!tag.includes("#")) {
+         tag = tag + "#0";
+      }
+
       if (member.user.tag === tag) {
          member.roles.add(role);
          console.log("Success set role to " + tag);
@@ -120,7 +124,7 @@ export default class Discord implements DiscordClass {
 
       this.client.on("interactionCreate", async (interaction) => {
          if (interaction.isButton()) {
-            console.log("interaction: " + interaction);
+            // console.log("interaction: " + interaction);
             console.log("interaction.customId: " + interaction.customId);
             if (interaction.customId === "verify") {
                let url: string =
