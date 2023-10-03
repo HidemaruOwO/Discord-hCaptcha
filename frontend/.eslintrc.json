@@ -10,5 +10,12 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "react/prop-types": "warn",
+    "@typescript-eslint/strict-boolean-expressions": "off"
+  }
 }
