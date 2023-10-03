@@ -12,9 +12,7 @@ import {
 } from "react-bootstrap";
 
 import "whatwg-fetch";
-// styles
 import styles from "../styles/Auth.module.css";
-//json
 import config from "../../config/config.json";
 
 type Props = {
@@ -27,11 +25,11 @@ export default function Auth({ serverId, userId }: Props) {
   const [token, setToken] = useState(null);
   const [submit, setSubmit] = useState<boolean>(true);
   const [warnShow, setWarnShow] = useState<boolean>(false);
-  const handleWarnClose = () => setWarnShow(false);
+  const handleWarnClose = () => { setWarnShow(false); };
   const [errorShow, setErrorShow] = useState<boolean>(false);
-  const handleErrorClose = () => setErrorShow(false);
+  const handleErrorClose = () => { setErrorShow(false); };
   const [doneShow, setDoneShow] = useState<boolean>(false);
-  const handleDoneClose = () => setDoneShow(false);
+  const handleDoneClose = () => { setDoneShow(false); };
   const captchaRef = useRef(null);
 
   const onLoad = () => {
@@ -39,7 +37,7 @@ export default function Auth({ serverId, userId }: Props) {
     // execute function on it. you can use other functions as
     // documented here:
     // https://docs.hcaptcha.com/configuration#jsapi
-    //captchaRef.current.execute();
+    // captchaRef.current.execute();
     console.log("hCaptcha loaded");
   };
 
@@ -59,8 +57,8 @@ export default function Auth({ serverId, userId }: Props) {
         },
         body: JSON.stringify({
           tag: discordtag,
-          userId: userId,
-          serverId: serverId,
+          userId,
+          serverId,
           captchaToken: token,
         }),
       }).then(
