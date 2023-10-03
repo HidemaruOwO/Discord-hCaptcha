@@ -25,11 +25,17 @@ export default function Auth({ serverId, userId }: Props) {
   const [token, setToken] = useState(null);
   const [submit, setSubmit] = useState<boolean>(true);
   const [warnShow, setWarnShow] = useState<boolean>(false);
-  const handleWarnClose = () => { setWarnShow(false); };
+  const handleWarnClose = () => {
+    setWarnShow(false);
+  };
   const [errorShow, setErrorShow] = useState<boolean>(false);
-  const handleErrorClose = () => { setErrorShow(false); };
+  const handleErrorClose = () => {
+    setErrorShow(false);
+  };
   const [doneShow, setDoneShow] = useState<boolean>(false);
-  const handleDoneClose = () => { setDoneShow(false); };
+  const handleDoneClose = () => {
+    setDoneShow(false);
+  };
   const captchaRef = useRef(null);
 
   const onLoad = () => {
@@ -99,9 +105,9 @@ export default function Auth({ serverId, userId }: Props) {
                 <Card.Body>
                   <Form>
                     <Form.Group className="mb-3" controlId="formDiscordtag">
-                      <Form.Label>Discordのタグ</Form.Label>
+                      <Form.Label>Discordのユーザー名</Form.Label>
                       <Form.Control
-                        placeholder="Discord太郎#1234"
+                        placeholder="your_discord_username (or Discord太郎#1234)"
                         value={discordtag}
                         onChange={(e) => {
                           setDiscordtag(e.target.value);
@@ -123,6 +129,17 @@ export default function Auth({ serverId, userId }: Props) {
                       認証
                     </Button>
                   </Form>
+                  <details>
+                    <summary>🔎 Discordのユーザー名を確認するには</summary>
+                    <iframe
+                      title="page card"
+                      className="m-auto w-full"
+                      frameBorder="0"
+                      scrolling="no"
+                      loading="lazy"
+                      src="https://hatenablog-parts.com/embed?url=https://jinanbo11.com/coin/discord-15/"
+                    ></iframe>
+                  </details>
                 </Card.Body>
                 <Card.Footer>ServerID: {serverId}</Card.Footer>
               </Card>
