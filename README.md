@@ -1,3 +1,7 @@
+> [!NOTE]
+> trash code. don't read. don't use. not maintained for a long time
+
+<details>
 <div align="center">
 
 ![Last commit](https://img.shields.io/github/last-commit/HidemaruOwO/discordjs-hcaptcha?style=flat-square)
@@ -77,3 +81,4 @@ MIT
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=expressjs&repo=express)](https://github.com/expressjs/express)
 
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=discordjs&repo=discord.js)](https://github.com/discordjs/discord.js)
+</details>
